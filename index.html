@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEXANDER N. UTOMO // TERMINAL_UI</title>
+    <title>ALEXANDER N. UTOMO // CARD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -22,9 +22,7 @@
             --accent-cyan: #00f0ff;
             --accent-green: #00ff88;
             --accent-yellow: #ffcc00;
-            --accent-red: #ff4455;
-            --accent-blue: #3b82f6;
-            --font-mono: 'JetBrains Mono', monospace;
+            --font-mono: 'JetBrains Mono', Courier, monospace;
             --shadow-glow: 0 0 15px rgba(0, 240, 255, 0.15);
         }
 
@@ -39,205 +37,140 @@
             color: var(--text-primary);
             font-family: var(--font-mono);
             font-size: 13px;
-            line-height: 1.6;
-            padding: 20px;
+            line-height: 1.5;
+            padding: 24px 16px;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05) 0%, transparent 70%),
+                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.06) 0%, transparent 70%),
                 linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
             background-size: 100% 100%, 100% 24px;
         }
 
-        /* HARD-RESET SVGs so they NEVER blow up if CSS is slow */
-        svg {
-            max-width: 100%;
-            height: auto;
-            flex-shrink: 0;
-        }
-
-        .icon-svg {
-            width: 16px;
-            height: 16px;
+        /* STRICT SVG SIZING PROTECTIONS */
+        svg, .icon-svg {
+            width: 16px !important;
+            height: 16px !important;
+            max-width: 16px !important;
+            max-height: 16px !important;
             fill: none;
             stroke: currentColor;
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+            flex-shrink: 0;
             display: inline-block;
             vertical-align: middle;
         }
 
-        .terminal-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .card-container {
+            width: 100%;
+            max-width: 580px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .card-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
         }
 
         .top-bar {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
             padding: 10px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            font-size: 11px;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: var(--accent-green);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
+            box-shadow: 0 0 6px var(--accent-green);
         }
 
-        .version {
+        .sys-info {
             color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 400;
+            font-size: 10px;
         }
 
-        .system-stats {
-            display: flex;
-            gap: 8px;
-            align-items: center;
+        .profile-section {
+            padding: 24px 20px 20px 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .stat-badge {
-            padding: 2px 8px;
-            font-size: 11px;
-            font-weight: 700;
-            border-radius: 2px;
-            border: 1px solid transparent;
-        }
-
-        .stat-badge.success {
-            background-color: rgba(0, 255, 136, 0.1);
-            color: var(--accent-green);
-            border-color: rgba(0, 255, 136, 0.3);
-        }
-
-        .stat-badge.warning {
-            background-color: rgba(255, 204, 0, 0.1);
-            color: var(--accent-yellow);
-            border-color: rgba(255, 204, 0, 0.3);
-        }
-
-        .nav-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
+        .prompt-tag {
             color: var(--accent-cyan);
-            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
-        }
-
-        .hero-panel {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background-color: var(--accent-cyan);
-            box-shadow: 0 0 10px var(--accent-cyan);
-        }
-
-        .watermark-id {
-            position: absolute;
-            right: 20px;
-            top: -15px;
-            font-size: 100px;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.03);
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .terminal-prompt {
-            color: var(--accent-cyan);
-            font-size: 11px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
             margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            display: block;
         }
 
         .user-name {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            color: #fff;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            margin-bottom: 6px;
         }
 
-        .user-title {
+        .user-role {
+            font-size: 13px;
+            font-weight: 700;
             color: var(--accent-cyan);
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 8px;
             display: flex;
-            gap: 12px;
             align-items: center;
+            gap: 6px;
             flex-wrap: wrap;
+            margin-bottom: 16px;
         }
 
-        .status-pill {
-            background-color: rgba(0, 255, 136, 0.12);
-            color: var(--accent-green);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            padding: 2px 8px;
-            font-size: 10px;
-            border-radius: 2px;
-            font-weight: 700;
-        }
-
-        .user-bio {
-            max-width: 800px;
+        .company-tag {
             color: var(--text-primary);
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 2px;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 11px;
         }
 
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
+        .primary-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-top: 8px;
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 14px;
             font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 700;
@@ -246,15 +179,17 @@
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             text-transform: uppercase;
             text-decoration: none;
             border-radius: 2px;
+            line-height: 1;
         }
 
         .btn-primary {
             background-color: var(--accent-cyan);
-            color: #000;
+            color: #0a0b0e;
             border-color: var(--accent-cyan);
             box-shadow: var(--shadow-glow);
         }
@@ -265,208 +200,93 @@
         }
 
         .btn-secondary {
-            background-color: rgba(0, 240, 255, 0.1);
+            background-color: rgba(0, 240, 255, 0.08);
             color: var(--accent-cyan);
-            border-color: rgba(0, 240, 255, 0.4);
+            border-color: rgba(0, 240, 255, 0.3);
         }
 
         .btn-secondary:hover {
-            background-color: rgba(0, 240, 255, 0.2);
+            background-color: rgba(0, 240, 255, 0.18);
+            border-color: var(--accent-cyan);
         }
 
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-primary);
-            border-color: var(--border-bright);
+        .links-section {
+            padding: 20px;
         }
 
-        .btn-outline:hover {
-            background-color: var(--bg-hover);
-            border-color: var(--text-muted);
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-wide {
-            grid-column: span 2;
-        }
-
-        .card-header {
-            background-color: var(--bg-header);
-            padding: 8px 14px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-title {
-            font-weight: 700;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            color: var(--text-primary);
-        }
-
-        .badge, .pid {
+        .section-title {
             font-size: 10px;
+            font-weight: 700;
             color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .card-body {
-            padding: 14px;
-            flex: 1;
-        }
-
-        .contact-list {
+        .link-grid {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .contact-item {
+        .link-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 10px 14px;
             background-color: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
+            border-radius: 2px;
             text-decoration: none;
             color: inherit;
             transition: all 0.2s ease;
         }
 
-        .contact-item:hover {
+        .link-card:hover {
             background-color: var(--bg-hover);
             border-color: var(--accent-cyan);
             transform: translateX(3px);
         }
 
-        .contact-meta .label {
-            display: block;
-            font-size: 9px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .contact-meta .value {
-            font-size: 12px;
-            color: var(--accent-cyan);
-        }
-
-        .status-tag {
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 2px;
-            font-weight: 700;
-        }
-
-        .status-green { background-color: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
-        .status-blue { background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
-        .status-yellow { background-color: rgba(255, 204, 0, 0.15); color: var(--accent-yellow); }
-
-        .skill-bar-group {
-            margin-bottom: 12px;
-        }
-
-        .skill-bar-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-        }
-
-        .progress-bar .fill {
-            height: 100%;
-        }
-
-        .fill.cyan { background-color: var(--accent-cyan); }
-        .fill.green { background-color: var(--accent-green); }
-        .fill.yellow { background-color: var(--accent-yellow); }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .terminal-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 11px;
-        }
-
-        .terminal-table th, .terminal-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--border-color);
-            white-space: nowrap;
-        }
-
-        .terminal-table th {
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 10px;
-        }
-
-        .terminal-table tbody tr:hover {
-            background-color: var(--bg-hover);
-        }
-
-        .terminal-log p {
-            margin-bottom: 4px;
-            font-size: 11px;
-        }
-
-        .log-time { color: var(--text-dim); }
-        .log-info { color: var(--accent-cyan); font-weight: 700; }
-        .log-ok { color: var(--accent-green); font-weight: 700; }
-        .log-warn { color: var(--accent-yellow); font-weight: 700; }
-
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .quick-btn {
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
+        .link-left {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
         }
 
-        .quick-btn:hover {
-            background-color: var(--bg-hover);
-            border-color: var(--accent-cyan);
+        .link-icon-box {
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .link-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .link-value {
+            font-size: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .link-arrow {
+            color: var(--text-dim);
+            transition: color 0.2s ease;
+        }
+
+        .link-card:hover .link-arrow {
             color: var(--accent-cyan);
         }
 
@@ -481,16 +301,15 @@
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background-color: var(--bg-card);
             border: 1px solid var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
             width: 100%;
-            max-width: 360px;
+            max-width: 320px;
+            border-radius: 4px;
         }
 
         .modal-header {
@@ -502,7 +321,7 @@
             align-items: center;
             font-weight: 700;
             color: var(--accent-cyan);
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .close-btn {
@@ -514,359 +333,208 @@
             line-height: 1;
         }
 
-        .close-btn:hover {
-            color: var(--accent-red);
-        }
+        .close-btn:hover { color: var(--accent-cyan); }
 
         .modal-body {
-            padding: 16px;
+            padding: 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         #qrcode-container {
-            margin: 16px auto;
+            margin: 12px auto;
             display: flex;
             justify-content: center;
             padding: 10px;
-            background-color: #fff;
+            background-color: #ffffff;
             width: fit-content;
             border-radius: 4px;
         }
 
-        .qr-url-text {
-            font-size: 10px;
+        .qr-desc {
             color: var(--text-muted);
+            font-size: 10px;
+            margin-top: 8px;
             word-break: break-all;
         }
 
         .toast {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
             background-color: var(--accent-cyan);
             color: #000;
-            padding: 10px 16px;
+            padding: 8px 16px;
             font-weight: 700;
             font-size: 11px;
+            border-radius: 2px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             opacity: 0;
-            transform: translateY(20px);
             transition: all 0.3s ease;
             pointer-events: none;
             z-index: 1001;
-            border-radius: 2px;
+            white-space: nowrap;
         }
 
         .toast.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
 
-        .terminal-footer {
+        .card-footer {
             border-top: 1px solid var(--border-color);
-            padding-top: 14px;
+            padding: 10px 16px;
+            background-color: var(--bg-header);
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
+            align-items: center;
+            font-size: 9px;
             color: var(--text-dim);
-            font-size: 10px;
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
-            body { padding: 12px; }
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .card-wide { grid-column: span 1; }
-            .quick-grid { grid-template-columns: 1fr; }
+        @media (max-width: 480px) {
+            .primary-actions { grid-template-columns: 1fr; }
             .user-name { font-size: 22px; }
-            .top-bar { flex-direction: column; align-items: flex-start; }
+            .user-role { font-size: 12px; }
         }
     </style>
 </head>
 <body>
-    <div class="terminal-container">
+
+    <div class="card-container">
         <!-- TOP STATUS BAR -->
         <header class="top-bar">
             <div class="brand">
                 <span class="status-dot"></span>
-                <span class="brand-title">TERMINAL_UI</span>
-                <span class="version">// v1.0.4 - STABLE</span>
+                <span>IDENTITY_NODE</span>
             </div>
-            <div class="system-stats">
-                <span class="stat-badge success">SYS: OK</span>
-                <span class="stat-badge warning" id="net-stat">NET: ONLINE</span>
-                <span class="stat-badge warning" id="clock">00:00:00 WIB</span>
-            </div>
+            <div class="sys-info" id="clock">00:00:00 WIB</div>
         </header>
 
-        <!-- NAVIGATION BAR (TAB SECTION LINKS) -->
-        <nav class="nav-tabs">
-            <a href="#overview" class="nav-link active">// 01_OVERVIEW</a>
-            <a href="#connect" class="nav-link">// 02_CONNECT</a>
-            <a href="#stack" class="nav-link">// 03_STACK</a>
-            <a href="#projects" class="nav-link">// 04_PROJECTS</a>
-            <a href="#logs" class="nav-link">// 05_LOGS</a>
-        </nav>
+        <!-- PROFILE HERO -->
+        <section class="profile-section">
+            <span class="prompt-tag">// CONTACT_CARD</span>
+            <h1 class="user-name" id="display-name">ALEXANDER N. UTOMO</h1>
+            
+            <div class="user-role">
+                <span id="display-role">Senior Frontend Engineer</span>
+                <span class="company-tag" id="display-company">@ Tech Lab Inc.</span>
+            </div>
 
-        <!-- HERO SECTION / PROFILES -->
-        <section class="hero-panel" id="overview">
-            <div class="watermark-id">01</div>
-            <div class="hero-content">
-                <div class="terminal-prompt">SYSTEM_DASHBOARD // IDENTITY_MATRIX</div>
-                <h1 class="user-name">ALEXANDER N. UTOMO</h1>
-                <div class="user-title">
-                    <span>SENIOR FRONTEND ENGINEER</span>
-                    <span class="status-pill">STATUS: AVAILABLE_FOR_HIRE</span>
-                </div>
-                <p class="user-bio">
-                    Passionate Frontend Architect with 7+ years of experience building high-scale web platforms, terminal UIs, and developer tools. Focused on performance, accessibility, and modern web tech.
-                </p>
-
-                <div class="hero-actions">
-                    <button class="btn btn-primary" onclick="downloadVCard()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                        SIMPAN KONTAK (.VCF)
-                    </button>
-                    <button class="btn btn-secondary" onclick="toggleQRCode()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                        BAGIKAN QR CODE
-                    </button>
-                    <button class="btn btn-outline" onclick="copyURL()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        SALIN LINK CARD
-                    </button>
-                </div>
+            <!-- ACTION BUTTONS -->
+            <div class="primary-actions">
+                <button class="btn btn-primary" onclick="downloadVCard()">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    SIMPAN (.VCF)
+                </button>
+                <button class="btn btn-secondary" onclick="toggleQRCode()">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    QR CODE
+                </button>
             </div>
         </section>
 
-        <!-- DASHBOARD GRID -->
-        <main class="dashboard-grid">
-            
-            <!-- PANEL 1: SECURE_ACCESS / CONTACTS -->
-            <div class="card" id="connect">
-                <div class="card-header">
-                    <span class="card-title">SECURE_ACCESS // CONTACT_NODES</span>
-                    <span class="badge">ACTIVE</span>
-                </div>
-                <div class="card-body">
-                    <div class="contact-list">
-                        <a href="mailto:alexander@domain.com" class="contact-item">
-                            <div class="contact-meta">
-                                <span class="label">EMAIL</span>
-                                <span class="value">alexander@domain.com</span>
-                            </div>
-                            <span class="status-tag status-green">DIRECT</span>
-                        </a>
-                        <a href="https://linkedin.com/in/username" target="_blank" class="contact-item">
-                            <div class="contact-meta">
-                                <span class="label">LINKEDIN</span>
-                                <span class="value">/in/alexander-utomo</span>
-                            </div>
-                            <span class="status-tag status-blue">VERIFIED</span>
-                        </a>
-                        <a href="https://github.com/username" target="_blank" class="contact-item">
-                            <div class="contact-meta">
-                                <span class="label">GITHUB</span>
-                                <span class="value">@alexander-utomo</span>
-                            </div>
-                            <span class="status-tag status-blue">PUBLIC</span>
-                        </a>
-                        <a href="https://wa.me/6281234567890" target="_blank" class="contact-item">
-                            <div class="contact-meta">
-                                <span class="label">WHATSAPP</span>
-                                <span class="value">+62 812-3456-7890</span>
-                            </div>
-                            <span class="status-tag status-green">ONLINE</span>
-                        </a>
-                    </div>
-                </div>
+        <section class="links-section">
+            <div class="section-title">
+                <span>// CONNECT_NODES</span>
+                <span>DIRECT_LINKS</span>
             </div>
 
-            <!-- PANEL 2: RESOURCE_MONITOR / SKILLS -->
-            <div class="card" id="stack">
-                <div class="card-header">
-                    <span class="card-title">RESOURCE_MONITOR // TECH_STACK</span>
-                    <span class="pid">PID: 8392</span>
-                </div>
-                <div class="card-body">
-                    <div class="skill-bar-group">
-                        <div class="skill-info">
-                            <span>FRONTEND ARCHITECTURE (React/Next/TS)</span>
-                            <span class="percentage">95%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill cyan" style="width: 95%;"></div></div>
-                    </div>
-                    <div class="skill-bar-group">
-                        <div class="skill-info">
-                            <span>UI/UX & DESIGN SYSTEMS</span>
-                            <span class="percentage">90%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill green" style="width: 90%;"></div></div>
-                    </div>
-                    <div class="skill-bar-group">
-                        <div class="skill-info">
-                            <span>PERFORMANCE & WEB VITALS</span>
-                            <span class="percentage">92%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill yellow" style="width: 92%;"></div></div>
-                    </div>
-                    <div class="skill-bar-group">
-                        <div class="skill-info">
-                            <span>STATE MANAGEMENT & METRICS</span>
-                            <span class="percentage">85%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill cyan" style="width: 85%;"></div></div>
-                    </div>
-                </div>
+            <div class="link-grid" id="link-container">
+                <!-- Links dynamically rendered from JavaScript config -->
             </div>
-
-            <!-- PANEL 3: ACTIVE_PROCESSES / PROJECTS -->
-            <div class="card card-wide" id="projects">
-                <div class="card-header">
-                    <span class="card-title">ACTIVE_PROCESSES // RECENT_PROJECTS</span>
-                    <span class="badge">4 RUNNING</span>
-                </div>
-                <div class="card-body table-responsive">
-                    <table class="terminal-table">
-                        <thead>
-                            <tr>
-                                <th>PID</th>
-                                <th>PROJECT NAME</th>
-                                <th>ROLE</th>
-                                <th>STATUS</th>
-                                <th>STACK</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="color: var(--accent-cyan); font-weight: bold;">1024</td>
-                                <td>Enterprise Design System</td>
-                                <td>Lead Architect</td>
-                                <td><span class="status-tag status-green">RUNNING</span></td>
-                                <td>TypeScript, Storybook, Stencil</td>
-                            </tr>
-                            <tr>
-                                <td style="color: var(--accent-cyan); font-weight: bold;">2048</td>
-                                <td>Fintech Analytics Dashboard</td>
-                                <td>Senior Engineer</td>
-                                <td><span class="status-tag status-green">ACTIVE</span></td>
-                                <td>React, Next.js, Tailwind</td>
-                            </tr>
-                            <tr>
-                                <td style="color: var(--accent-cyan); font-weight: bold;">4096</td>
-                                <td>Terminal UI Component Library</td>
-                                <td>Creator</td>
-                                <td><span class="status-tag status-yellow">BETA</span></td>
-                                <td>Web Components, CSS Grid</td>
-                            </tr>
-                            <tr>
-                                <td style="color: var(--accent-cyan); font-weight: bold;">8192</td>
-                                <td>Developer Tech Blog</td>
-                                <td>Author</td>
-                                <td><span class="status-tag status-blue">PUBLISHED</span></td>
-                                <td>Astro, Markdown, Vercel</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- PANEL 4: KERNEL_LOG -->
-            <div class="card" id="logs">
-                <div class="card-header">
-                    <span class="card-title">KERNEL_LOG // SYSTEM_NOTES</span>
-                </div>
-                <div class="card-body terminal-log">
-                    <p><span class="log-time">[14:00:01]</span> <span class="log-info">[INFO]</span> Experienced in scaling web applications for high volume traffic.</p>
-                    <p><span class="log-time">[14:00:02]</span> <span class="log-ok">[OKAY]</span> Specialized in clean architecture, SDD, and fast UI responsiveness.</p>
-                    <p><span class="log-time">[14:00:05]</span> <span class="log-warn">[WARN]</span> Available for frontend consulting & architecture reviews.</p>
-                </div>
-            </div>
-
-            <!-- PANEL 5: QUICK_ACTIONS -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title">QUICK_ACTIONS</span>
-                </div>
-                <div class="card-body quick-grid">
-                    <button class="quick-btn" onclick="copyContactInfo()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        SALIN EMAIL
-                    </button>
-                    <button class="quick-btn" onclick="downloadVCard()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                        DOWNLOAD VCARD
-                    </button>
-                    <button class="quick-btn" onclick="window.open('https://github.com/username', '_blank')">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                        GITHUB PROFILE
-                    </button>
-                    <button class="quick-btn" onclick="triggerDiagnostics()">
-                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                        RUN DIAGNOSTICS
-                    </button>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- QR CODE MODAL -->
-        <div id="qr-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span>QR_IDENTITY_NODE</span>
-                    <button class="close-btn" onclick="toggleQRCode()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Scan QR code ini untuk menyimpan kontak / membuka situs ini di ponsel:</p>
-                    <div id="qrcode-container"></div>
-                    <div class="qr-url-text" id="qr-url-display">https://yourusername.github.io</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TOAST NOTIFICATION -->
-        <div id="toast" class="toast">NOTIFICATION_MESSAGE</div>
+        </section>
 
         <!-- FOOTER -->
-        <footer class="terminal-footer">
-            <div>SYSTEM STATUS: OPERATIONAL // HOSTED ON GITHUB PAGES</div>
-            <div>&copy; <span id="year">2026</span> ALEXANDER N. UTOMO. ALL RIGHTS RESERVED.</div>
+        <footer class="card-footer">
+            <div>STATUS: ONLINE</div>
+            <div>&copy; <span id="year">2026</span> ALEXANDER N. UTOMO</div>
         </footer>
     </div>
 
+    <!-- QR CODE MODAL -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>QR_SHARE_NODE</span>
+                <button class="close-btn" onclick="toggleQRCode()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-primary); font-weight:700;">Scan untuk Buka Kartu Digital</p>
+                <div id="qrcode-container"></div>
+                <div class="qr-desc" id="qr-url-display">https://yourname.github.io</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">NOTIFIKASI</div>
+
+    <!-- EXTERNAL QR LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <script>
+        /* ==========================================================================
+           KONFIGURASI DATA DIRI (Cukup edit bagian objek di bawah ini)
+           ========================================================================== */
         const USER_CONFIG = {
-            fullName: "Alexander N. Utomo",
-            title: "Senior Frontend Engineer",
-            email: "alexander@domain.com",
-            phone: "+6281234567890",
-            website: window.location.href,
-            github: "https://github.com/username",
-            linkedin: "https://linkedin.com/in/username"
+            fullName: "ALEXANDER N. UTOMO",
+            role: "Senior Frontend Engineer",
+            company: "Acme Tech Lab", // Isikan perusahaan/instansi saat ini
+            
+            // Daftar kontak & situs yang ingin ditampilkan
+            contacts: [
+                {
+                    label: "EMAIL",
+                    value: "alexander@domain.com",
+                    url: "mailto:alexander@domain.com",
+                    icon: `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>`
+                },
+                {
+                    label: "WHATSAPP / TELP",
+                    value: "+62 812-3456-7890",
+                    url: "https://wa.me/6281234567890",
+                    icon: `<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>`
+                },
+                {
+                    label: "LINKEDIN",
+                    value: "linkedin.com/in/alexander-utomo",
+                    url: "https://linkedin.com/in/username",
+                    icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>`
+                },
+                {
+                    label: "GITHUB",
+                    value: "github.com/alexander-utomo",
+                    url: "https://github.com/username",
+                    icon: `<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>`
+                },
+                {
+                    label: "WEBSITE / PORTOFOLIO",
+                    value: "alexander.dev",
+                    url: "https://github.com/username",
+                    icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`
+                }
+            ]
         };
 
-        function updateClock() {
-            const clockElem = document.getElementById('clock');
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('id-ID', { hour12: false }) + ' WIB';
-            if (clockElem) clockElem.innerText = timeStr;
-        }
-
         function downloadVCard() {
+            const cleanPhone = USER_CONFIG.contacts.find(c => c.label.includes("TELP"))?.value || "";
+            const email = USER_CONFIG.contacts.find(c => c.label === "EMAIL")?.value || "";
+            const linkedin = USER_CONFIG.contacts.find(c => c.label === "LINKEDIN")?.url || "";
+            const github = USER_CONFIG.contacts.find(c => c.label === "GITHUB")?.url || "";
+
             const vCardData = 
 `BEGIN:VCARD
 VERSION:3.0
 FN:${USER_CONFIG.fullName}
-TITLE:${USER_CONFIG.title}
-EMAIL;TYPE=INTERNET,WORK:${USER_CONFIG.email}
-TEL;TYPE=CELL:${USER_CONFIG.phone}
-URL:${USER_CONFIG.website}
-X-SOCIALPROFILE;TYPE=github:${USER_CONFIG.github}
-X-SOCIALPROFILE;TYPE=linkedin:${USER_CONFIG.linkedin}
+TITLE:${USER_CONFIG.role}
+ORG:${USER_CONFIG.company}
+EMAIL;TYPE=INTERNET,WORK:${email}
+TEL;TYPE=CELL:${cleanPhone}
+URL:${window.location.href}
+X-SOCIALPROFILE;TYPE=linkedin:${linkedin}
+X-SOCIALPROFILE;TYPE=github:${github}
 NOTE:Terminal Digital Business Card
 END:VCARD`;
 
@@ -878,31 +546,15 @@ END:VCARD`;
             link.click();
             document.body.removeChild(link);
 
-            showToast("[SYSTEM] File kontak .VCF berhasil diunduh.");
+            showToast("[DOWNLOADED] File .VCF berhasil diunduh.");
         }
 
-        function copyContactInfo() {
-            navigator.clipboard.writeText(USER_CONFIG.email).then(() => {
-                showToast(`[COPIED] Email (${USER_CONFIG.email}) berhasil disalin!`);
-            }).catch(() => {
-                showToast("[ERROR] Gagal menyalin email.");
-            });
-        }
-
-        function copyURL() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                showToast("[COPIED] Link Kartu Nama berhasil disalin ke clipboard!");
-            });
-        }
-
-        function showToast(message) {
+        function showToast(msg) {
             const toast = document.getElementById('toast');
             if (toast) {
-                toast.innerText = message;
+                toast.innerText = msg;
                 toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
+                setTimeout(() => toast.classList.remove('show'), 2800);
             }
         }
 
@@ -933,23 +585,46 @@ END:VCARD`;
                     });
                     qrGenerated = true;
                 } else {
-                    qrContainer.innerHTML = "<p style='color:red;'>QR Code library failed to load.</p>";
+                    qrContainer.innerHTML = "<p style='color:red;'>QR Library Loading Failed</p>";
                 }
             }
         }
 
-        function triggerDiagnostics() {
-            showToast("[RUNNING] Running diagnostics test...");
-            setTimeout(() => {
-                showToast("[DIAGNOSTICS COMPLETE] All systems nominal. 0 errors found.");
-            }, 1200);
+        function updateClock() {
+            const clockElem = document.getElementById('clock');
+            const now = new Date();
+            if (clockElem) clockElem.innerText = now.toLocaleTimeString('id-ID', { hour12: false }) + ' WIB';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Render Text Profiles
+            document.getElementById('display-name').innerText = USER_CONFIG.fullName;
+            document.getElementById('display-role').innerText = USER_CONFIG.role;
+            document.getElementById('display-company').innerText = "@ " + USER_CONFIG.company;
+            document.getElementById('year').innerText = new Date().getFullYear();
+
+            // Render Links
+            const container = document.getElementById('link-container');
+            container.innerHTML = USER_CONFIG.contacts.map(item => `
+                <a href="${item.url}" target="_blank" class="link-card">
+                    <div class="link-left">
+                        <div class="link-icon-box">
+                            <svg class="icon-svg" viewBox="0 0 24 24">${item.icon}</svg>
+                        </div>
+                        <div class="link-meta">
+                            <span class="link-label">${item.label}</span>
+                            <span class="link-value">${item.value}</span>
+                        </div>
+                    </div>
+                    <div class="link-arrow">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                    </div>
+                </a>
+            `).join('');
+
+            // Realtime Clock
             updateClock();
             setInterval(updateClock, 1000);
-            const yearElem = document.getElementById('year');
-            if (yearElem) yearElem.innerText = new Date().getFullYear();
         });
     </script>
 </body>
