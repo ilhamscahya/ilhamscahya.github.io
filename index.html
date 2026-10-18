@@ -1,39 +1,255 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Ilham Cahya Suherman</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-    <script src="https://kit.fontawesome.com/2a5fd197dc.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
-    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Terminal UI - Digital Business Card</title>
+    <!-- Google Fonts for Monospace Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+<body class="bg-terminal text-terminal-text font-mono antialiased">
+    
+    <!-- Top System Bar -->
+    <header class="sys-bar flex justify-between items-center px-4 py-2 border-b border-terminal-border bg-terminal-dark">
+        <div class="flex items-center gap-3">
+            <span class="font-bold text-cyan-400 tracking-wider text-sm">TERMINAL_UI</span>
+            <span class="text-xs text-gray-500 hidden sm:inline">// v1.0.4 - STABLE</span>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-4 text-xs">
+            <span class="sys-tag border border-green-500/40 text-green-400 px-2 py-0.5 rounded-sm">
+                <span class="pulse-dot bg-green-500 inline-block w-2 h-2 rounded-full mr-1"></span>SYS: OK
+            </span>
+            <span class="sys-tag border border-cyan-500/40 text-cyan-400 px-2 py-0.5 rounded-sm hidden xs:inline">
+                NET: ONLINE
+            </span>
+            <span id="time-display" class="text-gray-400 font-mono">00:00:00 UTC</span>
+        </div>
+    </header>
 
-<body style="background-color:#121212;">
-    <div class="container">
-        <div class="row justify-content-center align-items-center" data-aos="fade-up" data-aos-once="true">
-            <div class="col-12 col-lg-7 col-xl-7">
-                <img class="rounded-circle img-fluid d-block m-auto" style="padding-bottom: 20px;"
-                    src="assets/img/photo-round.png" width="100">
-                <a class="btn btn-primary btn-block btn-lg" role="button" href="https://www.linkedin.com/in/ilhamscahya/" target="_blank"
-                    style="background-color:rgb(36,142,255);">&nbsp;<i class="fab fa-linkedin"></i>&nbsp;LinkedIn</a><a
-                    class="btn btn-primary btn-block btn-lg" role="button" href="https://medium.com/@ilhamscahya" target="_blank"
-                    style="background-color:rgb(36,142,255);"><i class="fab fa-medium"></i>&nbsp;Medium</a><a
-                    class="btn btn-primary btn-block btn-lg" role="button" href="https://www.youtube.com/channel/UCC2eViGBcB7Y0Det2zzTCPw" target="_blank"
-                    style="background-color:rgb(36,142,255);"><i class="fab fa-youtube"></i>&nbsp;Youtube</a><a
-                    class="btn btn-primary btn-block btn-lg" role="button" href="https://github.com/ilhamscahya/" target="_blank"
-                    style="background-color:rgb(36,142,255);"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
+    <!-- Main Container -->
+    <div class="main-layout flex flex-col md:flex-row min-h-[calc(100vh-37px)]">
+        
+        <!-- Left Sidebar Navigation / Quick Bio -->
+        <aside class="sidebar w-full md:w-64 border-b md:border-b-0 md:border-r border-terminal-border bg-terminal-dark p-4 flex flex-col justify-between gap-6">
+            <div class="space-y-6">
+                <!-- User Identity Badge -->
+                <div class="profile-card p-3 border border-terminal-border bg-terminal-card/50 rounded-sm">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="avatar-box w-10 h-10 border border-cyan-500/50 bg-cyan-950/30 flex items-center justify-center font-bold text-cyan-400 text-lg">
+                            <span id="user-initials">DEV</span>
+                        </div>
+                        <div>
+                            <h2 id="sidebar-name" class="font-bold text-white text-sm tracking-wide">USER_NAME</h2>
+                            <p id="sidebar-role" class="text-xs text-cyan-400">ENGINEER</p>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-gray-400 border-t border-terminal-border/60 pt-2 mt-2 flex justify-between">
+                        <span>STATUS:</span>
+                        <span class="text-green-400 font-semibold">AVAILABLE_FOR_HIRE</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="space-y-1 text-xs">
+                    <a href="#overview" class="nav-item active flex items-center justify-between px-3 py-2 rounded-sm text-gray-300 hover:text-cyan-400 hover:bg-terminal-border/40 transition">
+                        <span>// 01_OVERVIEW</span>
+                        <span class="text-gray-600">&gt;</span>
+                    </a>
+                    <a href="#contacts" class="nav-item flex items-center justify-between px-3 py-2 rounded-sm text-gray-300 hover:text-cyan-400 hover:bg-terminal-border/40 transition">
+                        <span>// 02_CONNECT</span>
+                        <span class="text-gray-600">&gt;</span>
+                    </a>
+                    <a href="#skills" class="nav-item flex items-center justify-between px-3 py-2 rounded-sm text-gray-300 hover:text-cyan-400 hover:bg-terminal-border/40 transition">
+                        <span>// 03_STACK</span>
+                        <span class="text-gray-600">&gt;</span>
+                    </a>
+                    <a href="#projects" class="nav-item flex items-center justify-between px-3 py-2 rounded-sm text-gray-300 hover:text-cyan-400 hover:bg-terminal-border/40 transition">
+                        <span>// 04_PROJECTS</span>
+                        <span class="text-gray-600">&gt;</span>
+                    </a>
+                    <a href="#logs" class="nav-item flex items-center justify-between px-3 py-2 rounded-sm text-gray-300 hover:text-cyan-400 hover:bg-terminal-border/40 transition">
+                        <span>// 05_LOGS</span>
+                        <span class="text-gray-600">&gt;</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Sidebar Footer Actions -->
+            <div class="space-y-2 pt-4 border-t border-terminal-border/50 text-xs">
+                <button id="btn-save-vcard-side" class="w-full btn-cyan py-2 px-3 text-center rounded-sm font-semibold flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    SIMPAN KONTAK (.VCF)
+                </button>
+                <button id="btn-qr-side" class="w-full btn-outline py-2 px-3 text-center rounded-sm text-gray-300 hover:text-white flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-6v3m6-3v1m-6-10h.01M6 12h.01M6 16h.01M18 12h.01M12 8h.01M16 12h.01M12 12h.01M12 16h.01M6 6h2v2H6V6zm0 12h2v2H6v-2zm12-12h2v2h-2V6z"></path></svg>
+                    TAMPILKAN QR
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 p-4 lg:p-6 overflow-y-auto space-y-6">
+            
+            <!-- Hero Dashboard Banner -->
+            <section id="overview" class="terminal-card border border-terminal-border bg-terminal-dark/80 p-5 lg:p-6 relative">
+                <div class="watermark-number">01</div>
+                <div class="relative z-10 space-y-4 max-w-3xl">
+                    <div class="inline-block px-2 py-0.5 text-[11px] bg-cyan-950/60 border border-cyan-500/50 text-cyan-400 font-mono">
+                        SYSTEM_DASHBOARD // IDENTITY_MATRIX
+                    </div>
+                    <h1 id="hero-title" class="text-3xl lg:text-4xl font-bold text-white tracking-wide">
+                        ALEXANDER N.
+                    </h1>
+                    <p id="hero-bio" class="text-sm lg:text-base text-gray-300 leading-relaxed font-mono">
+                        Welcome back, Visitor. Senior Frontend Engineer specializing in high-performance web systems, reactive architectures, and developer tooling.
+                    </p>
+                    
+                    <!-- Primary Action Buttons -->
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button id="btn-save-vcard-main" class="btn-cyan px-5 py-2.5 rounded-sm font-semibold text-xs tracking-wider flex items-center gap-2 shadow-lg shadow-cyan-500/10">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                            SIMPAN KONTAK VCF
+                        </button>
+                        <button id="btn-show-qr-main" class="btn-outline px-5 py-2.5 rounded-sm font-semibold text-xs text-gray-200 tracking-wider flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-6v3m6-3v1m-6-10h.01M6 12h.01M6 16h.01M18 12h.01M12 8h.01M16 12h.01M12 12h.01M12 16h.01M6 6h2v2H6V6zm0 12h2v2H6v-2zm12-12h2v2h-2V6z"></path></svg>
+                            BAGIKAN QR CODE
+                        </button>
+                        <button id="btn-copy-link" class="btn-outline px-4 py-2.5 rounded-sm font-semibold text-xs text-gray-300 hover:text-white flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            SALIN LINK
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid Layout for Modules -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left Column: Stack & Contacts (7 cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <!-- Contacts & Secure Channels -->
+                    <section id="contacts" class="terminal-card border border-terminal-border bg-terminal-dark p-4 lg:p-5">
+                        <div class="card-header border-b border-terminal-border/80 pb-2 mb-4 flex justify-between items-center">
+                            <h3 class="font-bold text-xs text-cyan-400 tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-cyan-400 inline-block"></span>
+                                SECURE_CONNECT // CONTACT_LIST
+                            </h3>
+                            <span class="text-[10px] text-gray-500 font-mono">CHANNELS: 05</span>
+                        </div>
+                        
+                        <div id="contact-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <!-- Populated dynamically from config.js -->
+                        </div>
+                    </section>
+
+                    <!-- Tech Stack / Resource Monitor -->
+                    <section id="skills" class="terminal-card border border-terminal-border bg-terminal-dark p-4 lg:p-5">
+                        <div class="card-header border-b border-terminal-border/80 pb-2 mb-4 flex justify-between items-center">
+                            <h3 class="font-bold text-xs text-cyan-400 tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-400 inline-block"></span>
+                                RESOURCE_MONITOR // SKILL_MATRIX
+                            </h3>
+                            <span class="text-[10px] text-gray-500 font-mono">CAPACITY: 100%</span>
+                        </div>
+
+                        <div id="skills-container" class="space-y-3.5 text-xs">
+                            <!-- Populated dynamically from config.js -->
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Right Column: Projects & Kernel Logs (5 cols) -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- Active Projects / Processes -->
+                    <section id="projects" class="terminal-card border border-terminal-border bg-terminal-dark p-4 lg:p-5">
+                        <div class="card-header border-b border-terminal-border/80 pb-2 mb-4 flex justify-between items-center">
+                            <h3 class="font-bold text-xs text-cyan-400 tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-yellow-400 inline-block"></span>
+                                ACTIVE_PROCESSES // HIGHLIGHTS
+                            </h3>
+                            <span class="text-[10px] text-gray-500 font-mono">PID: 8392</span>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs font-mono">
+                                <thead>
+                                    <tr class="border-b border-terminal-border text-gray-500 text-[11px]">
+                                        <th class="pb-2">PID</th>
+                                        <th class="pb-2">NAME</th>
+                                        <th class="pb-2">ROLE</th>
+                                        <th class="pb-2 text-right">STS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projects-table-body" class="divide-y divide-terminal-border/40">
+                                    <!-- Populated dynamically from config.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Kernel Log / Experience Timeline -->
+                    <section id="logs" class="terminal-card border border-terminal-border bg-terminal-dark p-4 lg:p-5">
+                        <div class="card-header border-b border-terminal-border/80 pb-2 mb-4 flex justify-between items-center">
+                            <h3 class="font-bold text-xs text-cyan-400 tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 bg-purple-400 inline-block"></span>
+                                KERNEL_LOG // EXPERIENCE
+                            </h3>
+                            <span class="text-[10px] text-gray-500 font-mono">READ_ONLY</span>
+                        </div>
+
+                        <div id="logs-container" class="space-y-2 text-xs font-mono max-h-60 overflow-y-auto pr-1">
+                            <!-- Populated dynamically from config.js -->
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal for QR Code -->
+    <div id="qr-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="terminal-card border border-cyan-500/60 bg-terminal-dark p-6 max-w-sm w-full relative shadow-2xl">
+            <button id="btn-close-qr" class="absolute top-3 right-3 text-gray-400 hover:text-white font-mono text-sm px-2 py-0.5 border border-terminal-border">
+                [X]
+            </button>
+            <div class="text-center space-y-4">
+                <div class="text-xs font-mono text-cyan-400">// SCAN_TO_CONNECT</div>
+                <h3 class="font-bold text-white text-base">QR CODE KARTU NAMA</h3>
+                
+                <div class="p-4 bg-white rounded-sm inline-block mx-auto border border-cyan-400">
+                    <img id="qr-code-img" src="" alt="QR Code Kontak" class="w-48 h-48 block mx-auto">
+                </div>
+
+                <p class="text-xs text-gray-400 font-mono">
+                    Arahkan kamera smartphone untuk membuka kartu nama online ini secara cepat.
+                </p>
+
+                <div class="pt-2 flex gap-2">
+                    <button id="btn-download-qr" class="btn-cyan w-full py-2 text-xs font-semibold">
+                        DOWNLOAD QR
+                    </button>
+                    <button id="btn-close-qr-bottom" class="btn-outline w-full py-2 text-xs font-semibold text-gray-300">
+                        TUTUP
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
-    <script src="assets/js/script.min.js"></script>
-</body>
 
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>

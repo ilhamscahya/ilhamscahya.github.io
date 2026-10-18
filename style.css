@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cyberpunk Terminal Custom Palette */
+:root {
+    --bg-terminal: #0c0d10;
+    --bg-dark: #12141a;
+    --bg-card: #161922;
+    --border-color: #262c3a;
+    --accent-cyan: #00f0ff;
+    --accent-green: #00ff66;
+    --accent-yellow: #f59e0b;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+}
+
+body {
+    background-color: var(--bg-terminal);
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-terminal);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}
+
+/* Terminal Elements */
+.terminal-card {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.terminal-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid var(--accent-cyan);
+    border-left: 2px solid var(--accent-cyan);
+}
+
+.watermark-number {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.03);
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* Custom Buttons */
+.btn-cyan {
+    background-color: var(--accent-cyan);
+    color: #050b14;
+    border: 1px solid var(--accent-cyan);
+    transition: all 0.2s ease;
+}
+.btn-cyan:hover {
+    background-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background-color: rgba(22, 25, 34, 0.8);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+.btn-outline:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    transform: translateY(-1px);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+.pulse-dot {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Toast styling */
+.toast-msg {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-cyan);
+    color: var(--text-main);
+    box-shadow: 0 10px 25px -5px rgba(0, 240, 255, 0.2);
+}
